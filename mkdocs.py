@@ -61,7 +61,7 @@ for idx in range(len(path_list)):
         next_url_map[path] = rel + path_list[idx + 1][:-3] + suffix
 
 
-for (dirpath, _dirnames, filenames) in os.walk(docs_dir):
+for dirpath, _dirnames, filenames in os.walk(docs_dir):
     relative_dir = dirpath.replace(docs_dir, "").lstrip(os.path.sep)
     build_dir = os.path.join(html_dir, relative_dir)
 

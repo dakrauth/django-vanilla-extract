@@ -9,3 +9,5 @@ html/
 htmlcov/
 *.egg-info/
 .tox/
+/temp
+/venv

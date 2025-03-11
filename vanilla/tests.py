@@ -52,14 +52,6 @@ class BaseTestCase(TestCase):
         self.factory = RequestFactory()
         super(BaseTestCase, self).setUp()
 
-    def assertFormError(self, response, form, field, errors, msg_prefix=""):
-        # Hack to get around the fact that we're using request factory,
-        # instead of the full test client.
-        response.context = response.context_data
-        return super(BaseTestCase, self).assertFormError(
-            response, form, field, errors, msg_prefix
-        )
-
     def assertContext(self, response, expected):
         # Ensure the keys all match.
         # Note that this style ensures we get nice descriptive failures.
@@ -301,8 +293,7 @@ class TestCreate(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.template_name, ["vanilla/example_form.html"])
         self.assertFormError(
-            response,
-            "form",
+            response.context_data["form"],
             "text",
             ["Ensure this value has at most 10 characters (it has 700)."],
         )
@@ -379,8 +370,7 @@ class TestUpdate(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.template_name, ["vanilla/example_form.html"])
         self.assertFormError(
-            response,
-            "form",
+            response.context_data["form"],
             "text",
             ["Ensure this value has at most 10 characters (it has 700)."],
         )
@@ -614,8 +604,7 @@ class TestFormView(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.template_name, ["example.html"])
         self.assertFormError(
-            response,
-            "form",
+            response.context_data["form"],
             "text",
             ["Ensure this value has at most 10 characters (it has 700)."],
         )
