@@ -1,6 +1,6 @@
 from example.notes.forms import NoteForm
 from example.notes.models import Note
-from vanilla import CreateView, DeleteView, ListView, UpdateView
+from vanilla_extract import CreateView, DeleteView, ListView, UpdateView
 
 try:
     from django.urls import reverse_lazy  # django 1.11+

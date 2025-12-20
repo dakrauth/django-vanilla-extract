@@ -1,10 +1,10 @@
 # Release Notes
 
-The `django-vanilla-views` package is not expected to change rapidly, as it's feature set is intended to remain in lock-step with Django's releases.
+The `django-vanilla-extract` package is not expected to change rapidly, as it's feature set is intended to remain in lock-step with Django's releases.
 
 ## Deprecation policy
 
-The `django-vanilla-views` package follows a formal deprecation policy, which is in line with [Django's deprecation policy][django-deprecation-policy].
+The `django-vanilla-extract` package follows a formal deprecation policy, which is in line with [Django's deprecation policy][django-deprecation-policy].
 
 The timeline for deprecation of a feature present in version 1.0 would work as follows:
 
@@ -16,15 +16,30 @@ The timeline for deprecation of a feature present in version 1.0 would work as f
 
 ## Upgrading
 
-To upgrade `django-vanilla-views` to the latest version, use pip:
+To upgrade `django-vanilla-extract` to the latest version, use pip:
 
-    pip install -U django-vanilla-views
+    pip install -U django-vanilla-extract
 
 You can determine your currently installed version using `pip freeze`:
 
-    pip freeze | grep django-vanilla-views
+    pip freeze | grep django-vanilla-extract
 
 ---
+
+## 4.0.0
+
+**Released** December 2025
+* Support for Python >= 3.10
+* Support for Django 6.0
+* Drop support for Django 5.0, 5.1
+* Refactored project structure, added uv support, added pytest support
+
+## 3.1.0
+
+**Unreleased**
+
+* Support Django 4.2, 5.0, 5.1
+* Drop support for Django < 4.2
 
 ## 3.0.0
 

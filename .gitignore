@@ -1,5 +1,4 @@
 *.pyc
-*.db
 .coverage
 MANIFEST
 dist/
@@ -10,4 +9,9 @@ htmlcov/
 *.egg-info/
 .tox/
 /temp
-/venv
+/.venv
+.pytest_cache/
+.ruff_cache/
+.tox/
+.python-version
+example/sqlite3.db

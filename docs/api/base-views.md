@@ -112,7 +112,7 @@ You can also override this class in order to use a subclass of Django's standard
 
 ## RedirectView
 
-For completeness, Django's standard `RedirectView` is included in the `django-vanilla-views` package.  The class does not have any implementation or API differences from Django's implementation.
+For completeness, Django's standard `RedirectView` is included in the `django-vanilla-extract` package.  The class does not have any implementation or API differences from Django's implementation.
 
 You should [refer to the Django documentation][redirect-view-docs] for further information.
 

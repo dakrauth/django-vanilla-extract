@@ -4,15 +4,15 @@
 
 ### Won't I lose functionality or flexibility?
 
-No.  Everything you can do with Django's standard class based views you can also do with `django-vanilla-views`.  The migration guides cover all the bits of API that have been removed, and explain how you can easily achieve the same functionality with vanilla views.
+No.  Everything you can do with Django's standard class based views you can also do with `django-vanilla-extract`.  The migration guides cover all the bits of API that have been removed, and explain how you can easily achieve the same functionality with vanilla views.
 
 ### Can I still use mixin classes?
 
-Sure.  The `django-vanilla-views` package doesn't happen to use mixin classes, but there's no reason you shouldn't do so in your own code.  Overuse of mixin classes can make for poor style, but when used in moderation they're a powerful and useful tool.
+Sure.  The `django-vanilla-extract` package doesn't happen to use mixin classes, but there's no reason you shouldn't do so in your own code.  Overuse of mixin classes can make for poor style, but when used in moderation they're a powerful and useful tool.
 
 ### Can I use decorators with Vanilla views?
 
-Yes.  Using decorators with `django-vanilla-views` is *exactly* the same as using decorators with Django's regular class-based view.  You can [wrap the decorator in the URL conf][urlconf-decorators], like so:
+Yes.  Using decorators with `django-vanilla-extract` is *exactly* the same as using decorators with Django's regular class-based view.  You can [wrap the decorator in the URL conf][urlconf-decorators], like so:
 
     urlpatterns = patterns('',
         (r'^create-report/', login_required(CreateReportView.as_view())),
@@ -30,11 +30,11 @@ Alternatively you can apply a decorator to a view class itself, by [wrapping the
 
 ### I've already learnt Django's GCBVs, is this worth my time?
 
-Absolutely.  The API presented by `django-vanilla-views` is pretty simple so it shouldn't take you long to get up and running with it.  The generic class based views are the bread and butter of our web sites, and the small investment in time you'll make learning `django-vanilla-views` should pay of quickly as you'll be using simpler, more obvious views throughout.
+Absolutely.  The API presented by `django-vanilla-extract` is pretty simple so it shouldn't take you long to get up and running with it.  The generic class based views are the bread and butter of our web sites, and the small investment in time you'll make learning `django-vanilla-extract` should pay of quickly as you'll be using simpler, more obvious views throughout.
 
 ### Is it stable?
 
-The `django-vanilla-views` package has issued a 1.0 release and now has a [formal deprecation policy][deprecation-policy].  You should be free to use it knowing that package upgrades will be fully documented and will not break API compatibility between releases.  We also have 100% code coverage and fully intend to quickly deal with any issues reported.
+The `django-vanilla-extract` package has issued a 1.0 release and now has a [formal deprecation policy][deprecation-policy].  You should be free to use it knowing that package upgrades will be fully documented and will not break API compatibility between releases.  We also have 100% code coverage and fully intend to quickly deal with any issues reported.
 
 ---
 

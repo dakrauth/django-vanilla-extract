@@ -1,13 +1,6 @@
-<p class="badges">
-<iframe src="http://ghbtns.com/github-btn.html?user=tomchristie&amp;repo=django-vanilla-views&amp;type=watch&amp;count=true" class="github-star-button" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
-
-</p>
-
-# Django Vanilla Views
+# Django Vanilla Extract
 
 **Beautifully simple class-based views.**
-
-[![Build Status](https://img.shields.io/github/workflow/status/encode/django-vanilla-views/CI/master?style=for-the-badge)](https://github.com/encode/django-vanilla-views/actions?workflow=CI) [![PyPI version](https://img.shields.io/pypi/v/django-vanilla-views.svg?style=for-the-badge)](https://pypi.org/project/django-vanilla-views/)
 
     View --+------------------------- RedirectView
            |
@@ -35,15 +28,15 @@ Django vanilla views gives you **exactly the same functionality**, in a vastly s
 * A stripped down API.
 * Simpler method implementations, with less magical behavior.
 
-Remember, even though the API has been greatly simplified, everything you're able to do with Django's existing implementation is also supported in `django-vanilla-views`.  Although note that the package does not yet include the date based generic views.
+Remember, even though the API has been greatly simplified, everything you're able to do with Django's existing implementation is also supported in `django-vanilla-extract`.  Although note that the package does not yet include the date based generic views.
 
-If you believe you've found some behavior in Django's generic class-based views that can't also be trivially achieved in `django-vanilla-views`, then please [open a ticket][tickets], and we'll treat it as a bug.  To review the full set of API differences between the two implementations, please see the migration guide for the [base views][base-views-migration], and the [model views][model-views-migration].
+If you believe you've found some behavior in Django's generic class-based views that can't also be trivially achieved in `django-vanilla-extract`, then please [open a ticket][tickets], and we'll treat it as a bug.  To review the full set of API differences between the two implementations, please see the migration guide for the [base views][base-views-migration], and the [model views][model-views-migration].
 
-For further background, the original release announcement for `django-vanilla-views` is [available here][release-announcement].  There are also slides to a talk ['Design by minimalism'][design-by-minimalism] which introduces `django-vanilla-views` and was presented at the Django User Group, London.  You can also view the Django class hierarchy for the same set of views that `django-vanilla-views` provides, [here][django-cbv-hierarchy].
+For further background, the original release announcement for `django-vanilla-extract` is [available here][release-announcement].  There are also slides to a talk ['Design by minimalism'][design-by-minimalism] which introduces `django-vanilla-extract` and was presented at the Django User Group, London.  You can also view the Django class hierarchy for the same set of views that `django-vanilla-extract` provides, [here][django-cbv-hierarchy].
 
 ## Helping you to code smarter
 
-Django Vanilla Views isn't just easier to use.  I'd contest that because it presents fewer points of API to override, you'll also end up writing better, more maintainable code as a result.  You'll be working from a smaller set of repeated patterns throughout your projects, and with a much more obvious flow control in your views.
+Django Vanilla Extract isn't just easier to use.  I'd contest that because it presents fewer points of API to override, you'll also end up writing better, more maintainable code as a result.  You'll be working from a smaller set of repeated patterns throughout your projects, and with a much more obvious flow control in your views.
 
 As an example, a custom view implemented against Django's `CreateView` class might typically look something like this:
 
@@ -69,9 +62,9 @@ As an example, a custom view implemented against Django's `CreateView` class mig
 	        send_activation_email(self.request.user)
 	        return super(AccountCreateView, self).form_valid(form)
 
-Writing the same code with `django-vanilla-views`, you'd instead arrive at a simpler, more concise, and more direct style:
+Writing the same code with `django-vanilla-extract`, you'd instead arrive at a simpler, more concise, and more direct style:
 
-    from vanilla import CreateView
+    from vanilla_extract import CreateView
 	from django.http import HttpResponseRedirect
 
 	class AccountCreateView(CreateView):
@@ -90,26 +83,26 @@ Writing the same code with `django-vanilla-views`, you'd instead arrive at a sim
 
 ## Requirements
 
-* **Django**: 4.2, 5.0, 5.1, 5.2
-* **Python**: 3.10, 3.11, 3.12, 3.13
+* **Django**: 4.2, 5.2, 6.0
+* **Python**: 3.10, 3.11, 3.12, 3.13, 3.14
 
 ## Installation
 
 Install using pip.
 
-    pip install django-vanilla-views
+    pip install django-vanilla-extract
 
 ## Usage
 
 Import and use the views.
 
-    from vanilla import ListView, DetailView
+    from vanilla_extract import ListView, DetailView
 
 For example:
 
 	from django.core.urlresolvers import reverse_lazy
 	from example.notes.models import Note
-	from vanilla import CreateView, DeleteView, ListView, UpdateView
+	from vanilla_extract import CreateView, DeleteView, ListView, UpdateView
 
 	class ListNotes(ListView):
 	    model = Note
@@ -132,11 +125,11 @@ For example:
 
 ## Compare and contrast
 
-To help give you an idea of the relative complexity of `django-vanilla-views` against Django's existing implementations, let's compare the two.
+To help give you an idea of the relative complexity of `django-vanilla-extract` against Django's existing implementations, let's compare the two.
 
 #### Inheritance hierarchy, Vanilla style.
 
-The inheritance hierarchy of the views in `django-vanilla-views` is trivial, making it easy to figure out the control flow in the view.
+The inheritance hierarchy of the views in `django-vanilla-extract` is trivial, making it easy to figure out the control flow in the view.
 
     CreateView --> GenericModelView --> View
 
@@ -225,8 +218,8 @@ This repository includes an example project in the [example][example] directory.
 
 You can run the example locally by following these steps:
 
-    git clone git://github.com/tomchristie/django-vanilla-views.git
-    cd django-vanilla-views/example
+    git clone git://github.com/dakrauth/django-vanilla-extract.git
+    cd django-vanilla-extract/example
 
     # Create a clean virtualenv environment and install Django
     virtualenv env
@@ -274,14 +267,14 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 [twitter]: http://twitter.com/_tomchristie
-[tickets]: https://github.com/tomchristie/django-vanilla-views/issues
+[tickets]: https://github.com/dakrauth/django-vanilla-extract/issues
 [base-views-migration]: migration/base-views.md
 [model-views-migration]: migration/model-views.md
 [release-announcement]: http://dabapps.com/blog/fixing-djangos-generic-class-based-views/
 [design-by-minimalism]: http://slid.es/tomchristie/design-by-minimalism
 [django-cbv-hierarchy]: img/djangocbv.png
-[model_views.py]: https://github.com/tomchristie/django-vanilla-views/tree/master/vanilla/model_views.py
+[model_views.py]: https://github.com/dakrauth/django-vanilla-extract/tree/master/vanilla/model_views.py
 [base.py]: https://github.com/django/django/tree/master/django/views/generic/base.py
 [detail.py]: https://github.com/django/django/tree/master/django/views/generic/detail.py
 [edit.py]: https://github.com/django/django/tree/master/django/views/generic/edit.py
-[example]: https://github.com/tomchristie/django-vanilla-views/tree/master/example
+[example]: https://github.com/dakrauth/django-vanilla-extract/tree/master/example

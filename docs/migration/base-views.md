@@ -2,13 +2,13 @@
 
 ## Base Views
 
-This document provides the complete set of API changes between Django's existing basic generic views and the corresponding `django-vanilla-views` implementations.
+This document provides the complete set of API changes between Django's existing basic generic views and the corresponding `django-vanilla-extract` implementations.
 
 It covers `RedirectView`, `TemplateView` and `FormView`.  For the model views please [see here][model-views].
 
 Wherever API points have been removed, we provide examples of what you should be using instead.
 
-Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in `django-vanilla-views`, then please [open a ticket][tickets], and we'll treat it as a bug.
+Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in `django-vanilla-extract`, then please [open a ticket][tickets], and we'll treat it as a bug.
 
 ---
 
@@ -66,4 +66,4 @@ You should write this:
     form = self.get_form(request.DATA, request.FILES)
 
 [model-views]: model-views.md
-[tickets]: https://github.com/tomchristie/django-vanilla-views/issues
+[tickets]: https://github.com/dakrauth/django-vanilla-extract/issues

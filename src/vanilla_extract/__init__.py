@@ -1,6 +1,6 @@
 from django.views.generic import RedirectView, View
 
-from vanilla.model_views import (
+from vanilla_extract.model_views import (
     CreateView,
     DeleteView,
     DetailView,
@@ -8,9 +8,9 @@ from vanilla.model_views import (
     ListView,
     UpdateView,
 )
-from vanilla.views import FormView, GenericView, TemplateView
+from vanilla_extract.views import FormView, GenericView, TemplateView
 
-__version__ = "3.1.0"
+__version__ = "4.0.0"
 __all__ = (
     "View",
     "GenericView",

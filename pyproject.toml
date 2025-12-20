@@ -1,9 +1,69 @@
 [build-system]
-requires = ["setuptools >= 40.6.0", "wheel"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
-[tool.black]
-target-version = ['py310']
+[project]
+name = "django-vanilla-extract"
+dynamic = ["version"]
+description = "Beautifully simple class based views."
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Tom Christie", email = "tom@tomchristie.com"},
+]
+maintainers = [
+  {name = "David Krauth", email = "dakrauth@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP",
+]
 
-[tool.isort]
-profile = "black"
+dependencies = [
+    "django>=4.2",
+]
+
+[dependency-groups]
+dev = [
+    "markdown>=3.10",
+    "pytest>=9.0.2",
+    "pytest-django>=4.11.1",
+    "ruff>=0.14.10",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "coverage",
+    "pytest-django",
+    "pytest-cov",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+django_find_project = false
+pythonpath = "."
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "vanilla_extract.__init__.__version__"}
+
+[tool.ruff]
+line-length = 80
+indent-width = 4
+
+[project.urls]
+Homepage = "https://github.com/dakrauth/django-vanilla-extract"
+"Prior Art" = "http://django-vanilla-views.org"

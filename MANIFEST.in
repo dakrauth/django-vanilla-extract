@@ -7,8 +7,6 @@ include LICENSE
 include README.md
 exclude .editorconfig
 exclude .pre-commit-config.yaml
-exclude manage.py
 exclude mkdocs.py
 include pyproject.toml
-exclude testsettings.py
 exclude tox.ini

@@ -2,15 +2,15 @@
 
 ## Model Views
 
-This document provides the complete set of API changes between Django's existing model views and the corresponding `django-vanilla-views` implementations.
+This document provides the complete set of API changes between Django's existing model views and the corresponding `django-vanilla-extract` implementations.
 
 It covers `ListView`, `DetailView`, `CreateView`, `UpdateView` and `DeleteView`.  For the base views please [see here][base-views].
 
 Wherever API points have been removed, we provide examples of what you should be using instead.
 
-This scope of this migration guide may appear intimidating at first if you're intending to port your existing views across to using `django-vanilla-views`, but you should be able to approach refactorings in a fairly simple step-by-step manner, working through each item in the list one at a time.
+This scope of this migration guide may appear intimidating at first if you're intending to port your existing views across to using `django-vanilla-extract`, but you should be able to approach refactorings in a fairly simple step-by-step manner, working through each item in the list one at a time.
 
-Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in `django-vanilla-views`, then please [open a ticket][tickets], and we'll treat it as a bug.
+Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in `django-vanilla-extract`, then please [open a ticket][tickets], and we'll treat it as a bug.
 
 ---
 
@@ -132,7 +132,7 @@ The **call signature has been simplified**.  The `get_object()` method no longer
 
 The behavior has been **refactored to use less magical behavior**.  In the regular Django implementation, if neither `model` or `form_class` is specified on the view, then `get_form_class()` will fallback to attempting to automatically generate a form class based on either the object currently being operated on, or failing that to generate a form class by calling `get_queryset` and determining a default model form class from that.  Failing both of those it'll raise a configuration error.
 
-In `django-vanilla-views`, if neither the `model` or `form_class` is specified, it'll raise a configuration error.  If you need any more complex behavior that that, you should override `get_form_class()`.
+In `django-vanilla-extract`, if neither the `model` or `form_class` is specified, it'll raise a configuration error.  If you need any more complex behavior that that, you should override `get_form_class()`.
 
 ---
 
@@ -142,7 +142,7 @@ In `django-vanilla-views`, if neither the `model` or `form_class` is specified, 
 
 The behavior has been **refactored to use less magical behavior**.  In the regular Django implementation if `template_name` has been defined that will be the preferred option.  Failing that, if `template_name_field` is defined, and `object` is set on the view, then a template name given by a field on the object will be the next most preferred option.  Next, if `object` is set on the view then `{app}/{model_name}{suffix}.html` will be used based on the class of the object.  Finally if `model` is set on the view then  `{app}/{model_name}{suffix}.html` will be used.
 
-In `django-vanilla-views`, if `template_name` is defined that will be used, otherwise if `model` is defined it'll use `{app}/{model_name}{suffix}.html`.  If neither is defined it'll raise a configuration error.  If you need any more complex behavior that that, you should override `get_template_names()`.
+In `django-vanilla-extract`, if `template_name` is defined that will be used, otherwise if `model` is defined it'll use `{app}/{model_name}{suffix}.html`.  If neither is defined it'll raise a configuration error.  If you need any more complex behavior that that, you should override `get_template_names()`.
 
 ---
 
@@ -162,4 +162,4 @@ You should write this:
     form = self.get_form(request.DATA, request.FILES, instance=self.object)
 
 [base-views]: base-views.md
-[tickets]: https://github.com/tomchristie/django-vanilla-views/issues
+[tickets]: https://github.com/dakrauth/django-vanilla-extract/issues

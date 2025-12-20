@@ -1,4 +1,3 @@
-import django
 from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import InvalidPage, Paginator
 from django.forms import models as model_forms
@@ -6,12 +5,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.views.generic import View
-
-# Avoid RemovedInDjango40Warning on Django 3.0+
-if django.VERSION >= (3, 0):
-    from django.utils.translation import gettext as _
-else:
-    from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 class GenericModelView(View):

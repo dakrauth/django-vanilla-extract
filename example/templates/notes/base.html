@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <style>
+        html { font-size: 62.5%; font-family: sans-serif; }
+        *, *:before, *:after { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: border-box; }
+        body {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          line-height: 1.428571429;
+        }
+        .button {
+          background-color: #428bca;
+          border-color: #357ebd;
+          border-radius: 3px;
+          border: 1px solid transparent;
+          color: #ffffff;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 12px;
+          line-height: 1.5;
+          margin-bottom: 0;
+          padding: 5px 10px;
+          text-align: center;
+          vertical-align: middle;
+          white-space: nowrap;
+        }
+        .button.warn {
+          background-color: #d9534f;
+          border-color: #d43f3a;
+        }
+        table {
+          width: 100%;
+          margin-bottom: 20px;
+          max-width: 100%;
+          background-color: transparent;
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+        table tr:nth-child(odd) > td,
+        table tr:nth-child(odd) > th { background-color: #f9f9f9; }
+        table th, table td {
+          padding: 8px;
+          line-height: 1.428571429;
+          vertical-align: top;
+          border-top: 1px solid #dddddd;
+        }
+        a { text-decoration: none; }
+        th { text-align: left; }
+        h1, body > div { margin: 30px; }
+        form p { display: flex; gap: 1em; align-items: center; }
+        label { margin: 0; }
+        input[type=text] { border: 1px solid #ccc; border-radius: 4px; padding: 4px; }
+    </style>
+</head>
+<body>
+    <h1>{% block heading %}{% endblock heading %}</h1>
+    <div>{% block content %}{% endblock content %}</div>
+</body>
+</html>

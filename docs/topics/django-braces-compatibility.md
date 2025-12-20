@@ -1,6 +1,6 @@
 # Django Braces compatibility
 
-The `django-vanilla-views` package is almost completely compatible with the mixin classes provided by the popular [`django-braces`][django-braces] package.
+The `django-vanilla-extract` package is almost completely compatible with the mixin classes provided by the popular [`django-braces`][django-braces] package.
 
 The full set of mixins is listed below.  If you believe any of these entries to be incorrect, or if new mixins are added that are not listed here, then please [open an issue on GitHub][issues] so we can keep the information up to date.
 
@@ -29,9 +29,9 @@ The full set of mixins is listed below.  If you believe any of these entries to 
 <tr><td>FormMessagesMixin</td><td>Yes</td></tr>
 </table>
 
-(*) The `UserFormKwargsMixin` class is not compatible because it overrides the `get_form_kwargs()` method, which does not exist in `django-vanilla-views`.
+(*) The `UserFormKwargsMixin` class is not compatible because it overrides the `get_form_kwargs()` method, which does not exist in `django-vanilla-extract`.
 
-You can instead write a `django-vanilla-views` compatible mixin, like this:
+You can instead write a `django-vanilla-extract` compatible mixin, like this:
 
     class UserFormKwargsMixin(object):
         def get_form(self, data=None, files=None, **kwargs):
@@ -57,4 +57,4 @@ You can instead write a `django-vanilla-views` compatible mixin, like this:
 Note that if using `CanonicalSlugDetailMixin` you **must** also set a `slug_url_kwarg` on the view.
 
 [django-braces]: https://github.com/brack3t/django-braces
-[issues]: https://github.com/tomchristie/django-vanilla-views/issues
+[issues]: https://github.com/dakrauth/django-vanilla-extract/issues

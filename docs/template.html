@@ -13,17 +13,6 @@
     <link href="{{ base_url }}/css/bootstrap.css" rel="stylesheet">
     <link href="{{ base_url }}/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="{{ base_url }}/css/default.css" rel="stylesheet">
-
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-27795084-3', 'django-vanilla-views.org');
-      ga('send', 'pageview');
-
-    </script>
   </head>
   <body onload="prettyPrint()" class="{{ page_id }}-page">
 
@@ -32,7 +21,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="repo-link btn btn-primary btn-small" href="https://github.com/tomchristie/django-vanilla-views/tree/master">GitHub</a>
+            <a class="repo-link btn btn-primary btn-small" href="https://github.com/dakrauth/django-vanilla-extract/tree/master">GitHub</a>
             <a class="repo-link btn btn-inverse btn-small {{ next_url_disabled }}" href="{{ next_url }}">Next <i class="icon-arrow-right icon-white"></i></a>
             <a class="repo-link btn btn-inverse btn-small {{ prev_url_disabled }}" href="{{ prev_url }}"><i class="icon-arrow-left icon-white"></i> Previous</a>
             <a class="repo-link btn btn-inverse btn-small" href="#searchModal" data-toggle="modal"><i class="icon-search icon-white"></i> Search</a>
@@ -41,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="{{ base_url }}{{ index }}">Django Vanilla Views</a>
+          <a class="brand" href="{{ base_url }}{{ index }}">Django Vanilla Extract</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="{{ base_url }}{{ index }}">Home</a></li>

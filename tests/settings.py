@@ -5,7 +5,7 @@ DATABASES = {
     },
 }
 
-INSTALLED_APPS = ("vanilla",)
+INSTALLED_APPS = ("vanilla_extract", "tests")
 
 MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",

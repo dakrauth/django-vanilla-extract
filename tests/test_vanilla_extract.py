@@ -1,3 +1,4 @@
+import pytest
 from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import Page, Paginator
 from django.db import models
@@ -5,7 +6,7 @@ from django.forms import BaseForm, Form, ModelForm, fields
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 
-from vanilla import (
+from vanilla_extract import (
     CreateView,
     DeleteView,
     DetailView,
@@ -16,19 +17,14 @@ from vanilla import (
     View,
 )
 
-
-class Example(models.Model):
-    text = models.CharField(max_length=10)
-
-    class Meta:
-        ordering = ("id",)
+from .models import Example
 
 
 class ExampleForm(Form):
     text = fields.CharField(max_length=10)
 
 
-class InstanceOf(object):
+class InstanceOf:
     """
     We use this sentinel object together with our 'assertContext' helper method.
 
@@ -96,6 +92,7 @@ class BaseTestCase(TestCase):
         return view(request, *args, **kwargs)
 
 
+@pytest.mark.django_db
 class TestDetail(BaseTestCase):
     def test_detail(self):
         create_instance(quantity=3)
@@ -104,7 +101,7 @@ class TestDetail(BaseTestCase):
         response = self.get(view, pk=pk)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_detail.html"])
+        self.assertEqual(response.template_name, ["tests/example_detail.html"])
         self.assertContext(
             response,
             {
@@ -156,10 +153,12 @@ class TestDetail(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.template_name, ["example.html"])
         self.assertContext(
-            response, {"object": Example.objects.get(pk=pk), "view": InstanceOf(View)}
+            response,
+            {"object": Example.objects.get(pk=pk), "view": InstanceOf(View)},
         )
 
 
+@pytest.mark.django_db
 class TestList(BaseTestCase):
     def test_list(self):
         create_instance(quantity=3)
@@ -167,7 +166,7 @@ class TestList(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -185,7 +184,7 @@ class TestList(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -208,7 +207,7 @@ class TestList(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -227,7 +226,7 @@ class TestList(BaseTestCase):
         response = self.get(view, page=2)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -246,7 +245,7 @@ class TestList(BaseTestCase):
         response = self.get(view, page="last")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -270,6 +269,7 @@ class TestList(BaseTestCase):
         self.assertRaises(Http404, self.get, view, page="null")
 
 
+@pytest.mark.django_db
 class TestCreate(BaseTestCase):
     def test_create(self):
         view = CreateView.as_view(
@@ -291,7 +291,7 @@ class TestCreate(BaseTestCase):
         response = self.post(view, data={"text": "example" * 100})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_form.html"])
+        self.assertEqual(response.template_name, ["tests/example_form.html"])
         self.assertFormError(
             response.context_data["form"],
             "text",
@@ -311,7 +311,7 @@ class TestCreate(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_form.html"])
+        self.assertEqual(response.template_name, ["tests/example_form.html"])
         self.assertContext(
             response, {"form": InstanceOf(BaseForm), "view": InstanceOf(View)}
         )
@@ -340,6 +340,7 @@ class TestCreate(BaseTestCase):
             self.post(view, data={"text": "example"})
 
 
+@pytest.mark.django_db
 class TestUpdate(BaseTestCase):
     def test_update(self):
         create_instance(quantity=3)
@@ -368,7 +369,7 @@ class TestUpdate(BaseTestCase):
         response = self.post(view, pk=pk, data={"text": "example" * 100})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_form.html"])
+        self.assertEqual(response.template_name, ["tests/example_form.html"])
         self.assertFormError(
             response.context_data["form"],
             "text",
@@ -397,7 +398,7 @@ class TestUpdate(BaseTestCase):
         response = self.get(view, pk=pk)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_form.html"])
+        self.assertEqual(response.template_name, ["tests/example_form.html"])
         self.assertContext(
             response,
             {
@@ -425,6 +426,7 @@ class TestUpdate(BaseTestCase):
             self.post(view, pk=pk, data={"text": "example"})
 
 
+@pytest.mark.django_db
 class TestDelete(BaseTestCase):
     def test_delete(self):
         create_instance(quantity=3)
@@ -451,7 +453,7 @@ class TestDelete(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.template_name,
-            ["vanilla/example_confirm_delete.html"],
+            ["tests/example_confirm_delete.html"],
         )
         self.assertContext(
             response,
@@ -470,6 +472,7 @@ class TestDelete(BaseTestCase):
         self.assertRaises(ImproperlyConfigured, self.post, view, pk=pk)
 
 
+@pytest.mark.django_db
 class TestAttributeOverrides(BaseTestCase):
     def test_template_name_override(self):
         create_instance(quantity=3)
@@ -495,7 +498,7 @@ class TestAttributeOverrides(BaseTestCase):
         response = self.get(view, pk=pk)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_suffix.html"])
+        self.assertEqual(response.template_name, ["tests/example_suffix.html"])
         self.assertContext(
             response,
             {
@@ -512,7 +515,7 @@ class TestAttributeOverrides(BaseTestCase):
         response = self.get(view, pk=pk)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_detail.html"])
+        self.assertEqual(response.template_name, ["tests/example_detail.html"])
         self.assertContext(
             response,
             {
@@ -536,7 +539,7 @@ class TestAttributeOverrides(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_form.html"])
+        self.assertEqual(response.template_name, ["tests/example_form.html"])
         self.assertContext(
             response, {"form": InstanceOf(CustomForm), "view": InstanceOf(View)}
         )
@@ -552,7 +555,7 @@ class TestAttributeOverrides(BaseTestCase):
         response = self.get(view)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name, ["vanilla/example_list.html"])
+        self.assertEqual(response.template_name, ["tests/example_list.html"])
         self.assertContext(
             response,
             {
@@ -566,6 +569,7 @@ class TestAttributeOverrides(BaseTestCase):
         )
 
 
+@pytest.mark.django_db
 class TestTemplateView(BaseTestCase):
     def test_template_view(self):
         view = TemplateView.as_view(template_name="example.html")
@@ -581,6 +585,7 @@ class TestTemplateView(BaseTestCase):
         self.assertRaises(ImproperlyConfigured, self.get, view)
 
 
+@pytest.mark.django_db
 class TestFormView(BaseTestCase):
     def test_form_success(self):
         view = FormView.as_view(
@@ -628,11 +633,15 @@ class TestFormView(BaseTestCase):
 
     def test_misconfigured_form_view_no_form_class(self):
         # A template view with no `form_class` is improperly configured.
-        view = FormView.as_view(success_url="/success/", template_name="example.html")
+        view = FormView.as_view(
+            success_url="/success/", template_name="example.html"
+        )
         self.assertRaises(ImproperlyConfigured, self.get, view)
 
     def test_misconfigured_form_view_no_success_url(self):
         # A template view with no `success_url` is improperly configured.
-        view = FormView.as_view(form_class=ExampleForm, template_name="example.html")
+        view = FormView.as_view(
+            form_class=ExampleForm, template_name="example.html"
+        )
         with self.assertRaises(ImproperlyConfigured):
             self.post(view, data={"text": "example"})
