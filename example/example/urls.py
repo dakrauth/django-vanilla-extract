@@ -1,6 +1,6 @@
 from django.urls import path
-from example.notes.views import CreateNote, DeleteNote, EditNote, ListNotes
 
+from example.notes.views import CreateNote, DeleteNote, EditNote, ListNotes
 
 urlpatterns = [
     path("", ListNotes.as_view(), name="list_notes"),

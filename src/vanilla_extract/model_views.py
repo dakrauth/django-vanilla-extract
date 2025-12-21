@@ -4,8 +4,8 @@ from django.forms import models as model_forms
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
-from django.views.generic import View
 from django.utils.translation import gettext as _
+from django.views.generic import View
 
 
 class GenericModelView(View):

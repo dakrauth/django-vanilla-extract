@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
 import re
 import shutil
 import sys
 import webbrowser
+from pathlib import Path
 
 import markdown
 
@@ -58,7 +58,9 @@ def convert_text(filename, text, prev_url, next_url):
         template = template.replace("{{ anchor }}", anchor)
         toc += f"{template}\n"
 
-    subtitle = "Beautifully simple class based views" if filename == "index.md" else main_title
+    subtitle = (
+        "Beautifully simple class based views" if filename == "index.md" else main_title
+    )
     main_title = f"{PACKAGE} - {subtitle}"
     content = markdown.markdown(text, extensions=["toc"])
     output = replace(
@@ -73,9 +75,13 @@ def convert_text(filename, text, prev_url, next_url):
         ("{{ page_id }}", filename[:-3]),
     )
     if prev_url:
-        output = replace(output, ("{{ prev_url }}", prev_url), ("{{ prev_url_disabled }}", ""))
+        output = replace(
+            output, ("{{ prev_url }}", prev_url), ("{{ prev_url_disabled }}", "")
+        )
     else:
-        output = replace(output, ("{{ prev_url }}", "#"), ("{{ prev_url_disabled }}", "disabled"))
+        output = replace(
+            output, ("{{ prev_url }}", "#"), ("{{ prev_url_disabled }}", "disabled")
+        )
 
     if next_url:
         output = output.replace("{{ next_url }}", next_url)
@@ -110,17 +116,19 @@ def build_relative_urls(path_list):
 
 def mkdocs():
     # Hacky, but what the hell, it'll do the job
-    prev_map, next_map = build_relative_urls([
-        "index.md",
-        "api/base-views.md",
-        "api/model-views.md",
-        "migration/base-views.md",
-        "migration/model-views.md",
-        "topics/frequently-asked-questions.md",
-        "topics/django-braces-compatibility.md",
-        "topics/django-extra-views-compatibility.md",
-        "topics/release-notes.md",
-    ])
+    prev_map, next_map = build_relative_urls(
+        [
+            "index.md",
+            "api/base-views.md",
+            "api/model-views.md",
+            "migration/base-views.md",
+            "migration/model-views.md",
+            "topics/frequently-asked-questions.md",
+            "topics/django-braces-compatibility.md",
+            "topics/django-extra-views-compatibility.md",
+            "topics/release-notes.md",
+        ]
+    )
 
     for dirpath, _dirnames, filenames in DOCS_DIR.walk():
         relative_dir = dirpath.relative_to(DOCS_DIR)
@@ -150,5 +158,5 @@ def main():
         webbrowser.open_new_tab(f"file://{HTML_DIR / 'index.html'}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
