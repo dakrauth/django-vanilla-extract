@@ -6,16 +6,8 @@ from django.forms import BaseForm, Form, ModelForm, fields
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 
-from vanilla_extract import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    FormView,
-    ListView,
-    TemplateView,
-    UpdateView,
-    View,
-)
+from vanilla_extract import (CreateView, DeleteView, DetailView, FormView,
+                             ListView, TemplateView, UpdateView, View)
 
 from .models import Example
 
@@ -633,15 +625,11 @@ class TestFormView(BaseTestCase):
 
     def test_misconfigured_form_view_no_form_class(self):
         # A template view with no `form_class` is improperly configured.
-        view = FormView.as_view(
-            success_url="/success/", template_name="example.html"
-        )
+        view = FormView.as_view(success_url="/success/", template_name="example.html")
         self.assertRaises(ImproperlyConfigured, self.get, view)
 
     def test_misconfigured_form_view_no_success_url(self):
         # A template view with no `success_url` is improperly configured.
-        view = FormView.as_view(
-            form_class=ExampleForm, template_name="example.html"
-        )
+        view = FormView.as_view(form_class=ExampleForm, template_name="example.html")
         with self.assertRaises(ImproperlyConfigured):
             self.post(view, data={"text": "example"})
