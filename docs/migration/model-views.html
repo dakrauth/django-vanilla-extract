@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Django Vanilla Extract - None</title>
+    <link href="https://dakrauth.github.io/django-vanilla-extract/img/favicon.ico" rel="icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Django, CBV, GCBV, Generic class based views, Migration Guide">
+    <meta name="author" content="Tom Christie">
+
+    <!-- Le styles -->
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/prettify.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/default.css" rel="stylesheet">
+  </head>
+  <body onload="prettyPrint()" class="model-views-page">
+
+  <div class="wrapper">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="repo-link btn btn-primary btn-small" href="https://github.com/dakrauth/django-vanilla-extract/tree/master">GitHub</a>
+            <a class="repo-link btn btn-inverse btn-small " href="../topics/frequently-asked-questions.html">Next <i class="icon-arrow-right icon-white"></i></a>
+            <a class="repo-link btn btn-inverse btn-small " href="../migration/base-views.html"><i class="icon-arrow-left icon-white"></i> Previous</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="https://dakrauth.github.io/django-vanilla-extract/index.html">Django Vanilla Extract</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="https://dakrauth.github.io/django-vanilla-extract/index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Migration Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Topics <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/frequently-asked-questions.html">Frequently Asked Questions</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-braces-compatibility.html">Django Braces Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-extra-views-compatibility.html">Django Extra Views Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/release-notes.html">Release Notes</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav pull-right">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span3">
+            <div id="table-of-contents">
+              <ul class="nav nav-list side-nav well sidebar-nav-fixed">
+                <li class="main"><a href="#migration-guide">Migration Guide</a></li>
+<li><a href="#model-views">Model Views</a></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div id="main-content" class="span9">
+            <h1 id="migration-guide">Migration Guide</h1>
+<h2 id="model-views">Model Views</h2>
+<p>This document provides the complete set of API changes between Django's existing model views and the corresponding <code>django-vanilla-extract</code> implementations.</p>
+<p>It covers <code>ListView</code>, <code>DetailView</code>, <code>CreateView</code>, <code>UpdateView</code> and <code>DeleteView</code>.  For the base views please <a href="base-views.html">see here</a>.</p>
+<p>Wherever API points have been removed, we provide examples of what you should be using instead.</p>
+<p>This scope of this migration guide may appear intimidating at first if you're intending to port your existing views across to using <code>django-vanilla-extract</code>, but you should be able to approach refactorings in a fairly simple step-by-step manner, working through each item in the list one at a time.</p>
+<p>Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in <code>django-vanilla-extract</code>, then please <a href="https://github.com/dakrauth/django-vanilla-extract/issues">open a ticket</a>, and we'll treat it as a bug.</p>
+<hr />
+<h4 id="pk_url_field-slug_url_field-slug_url_kwarg-get_slug_field"><code>pk_url_field</code>, <code>slug_url_field</code>, <code>slug_url_kwarg</code>, <code>get_slug_field()</code></h4>
+<hr />
+<p><strong>These have been replaced</strong> with a simpler style using <code>lookup_field</code> and <code>lookup_url_kwarg</code>.</p>
+<p>If you need non-pk based lookup, specify <code>lookup_field</code> on the view:</p>
+<pre class="prettyprint lang-py"><code>class AccountListView(ListView):
+    model = Account
+    lookup_field = 'slug'
+</code></pre>
+<p>If you need a differing URL kwarg from the model field name, you should also set <code>lookup_url_kwarg</code>.</p>
+<pre class="prettyprint lang-py"><code>class AccountListView(ListView):
+    model = Account
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'account_name'
+</code></pre>
+<p>For more complex lookups, override <code>get_object()</code>, like so:</p>
+<pre class="prettyprint lang-py"><code>class AccountListView(ListView):
+    def get_object(self):
+        queryset = self.get_queryset()
+        return get_object_or_404(queryset, slug=self.kwargs['slug'], owner=self.request.user)
+</code></pre>
+<hr />
+<h4 id="initial-prefix-get_initial-get_prefix-get_form_kwargs"><code>initial</code>, <code>prefix</code>, <code>get_initial()</code>, <code>get_prefix()</code>, <code>get_form_kwargs()</code></h4>
+<hr />
+<p><strong>These are all removed</strong>.  If you need to override how the form is initialized, just override <code>get_form()</code>.</p>
+<p>For example, instead of this:</p>
+<pre class="prettyprint lang-py"><code>def get_form_kwargs(self):
+    kwargs = super(AccountEditView, self).get_form_kwargs
+    kwargs['user'] = self.request.user
+    return kwargs
+</code></pre>
+<p>You should write this:</p>
+<pre class="prettyprint lang-py"><code>def get_form(self, data, files, **kwargs):
+    kwargs['user'] = self.request.user
+    return AccountForm(data, files, **kwargs)
+</code></pre>
+<hr />
+<h4 id="template_name_field"><code>template_name_field</code></h4>
+<hr />
+<p><strong>This is removed</strong>.  If you need to dynamically determine template names, you should override <code>get_template_names()</code>.</p>
+<pre class="prettyprint lang-py"><code>def get_template_names(self):
+    return [self.object.template]
+</code></pre>
+<hr />
+<h4 id="content_type-response_cls"><code>content_type</code>, <code>response_cls</code></h4>
+<hr />
+<p><strong>These are removed</strong>.  If you need to customize how responses are rendered, you should override <code>render_to_response()</code>.</p>
+<pre class="prettyprint lang-py"><code>def render_to_response(context):
+    return JSONResponse(self.request, context)
+</code></pre>
+<p>If you needed to override the content type, you might write:</p>
+<pre class="prettyprint lang-py"><code>def render_to_response(context):
+    template = self.get_template_names()
+    return TemplateResponse(self.request, template, context, content_type='text/plain')
+</code></pre>
+<hr />
+<h4 id="paginator_cls-paginate_orphans-get_paginate_orphans"><code>paginator_cls</code>, <code>paginate_orphans</code>, <code>get_paginate_orphans()</code></h4>
+<hr />
+<p><strong>These are removed</strong>.  If you need to customize how the paginator is instantiated, you should override <code>get_paginator()</code>.</p>
+<pre class="prettyprint lang-py"><code>def get_paginator(self, queryset, page_size):
+    return CustomPaginator(queryset, page_size, orphans=3)
+</code></pre>
+<hr />
+<h4 id="paginate_queryset"><code>paginate_queryset()</code></h4>
+<hr />
+<p>The <strong>return value has been simplified</strong>.  Instead of returning a 4-tuple it now simply returns a page object.  Instead of this:</p>
+<pre class="prettyprint lang-py"><code>(page, paginator, queryset, is_paginated) = self.paginate_queryset(queryset, page_size)
+</code></pre>
+<p>You should write this:</p>
+<pre class="prettyprint lang-py"><code>page = self.paginate_queryset(queryset, page_size)
+</code></pre>
+<p>The page object contains a <code>paginator</code> attribute, an <code>object_list</code> attribute, and a <code>has_other_pages()</code> method, so you still have access to the same set of information that is available in the 4-tuple return style.</p>
+<hr />
+<h4 id="get_object"><code>get_object()</code></h4>
+<hr />
+<p>The <strong>call signature has been simplified</strong>.  The <code>get_object()</code> method no longer takes an optional <code>queryset</code> parameter.</p>
+<hr />
+<h4 id="get_form_class"><code>get_form_class()</code></h4>
+<hr />
+<p>The behavior has been <strong>refactored to use less magical behavior</strong>.  In the regular Django implementation, if neither <code>model</code> or <code>form_class</code> is specified on the view, then <code>get_form_class()</code> will fallback to attempting to automatically generate a form class based on either the object currently being operated on, or failing that to generate a form class by calling <code>get_queryset</code> and determining a default model form class from that.  Failing both of those it'll raise a configuration error.</p>
+<p>In <code>django-vanilla-extract</code>, if neither the <code>model</code> or <code>form_class</code> is specified, it'll raise a configuration error.  If you need any more complex behavior that that, you should override <code>get_form_class()</code>.</p>
+<hr />
+<h4 id="get_template_names"><code>get_template_names()</code></h4>
+<hr />
+<p>The behavior has been <strong>refactored to use less magical behavior</strong>.  In the regular Django implementation if <code>template_name</code> has been defined that will be the preferred option.  Failing that, if <code>template_name_field</code> is defined, and <code>object</code> is set on the view, then a template name given by a field on the object will be the next most preferred option.  Next, if <code>object</code> is set on the view then <code>{app}/{model_name}{suffix}.html</code> will be used based on the class of the object.  Finally if <code>model</code> is set on the view then  <code>{app}/{model_name}{suffix}.html</code> will be used.</p>
+<p>In <code>django-vanilla-extract</code>, if <code>template_name</code> is defined that will be used, otherwise if <code>model</code> is defined it'll use <code>{app}/{model_name}{suffix}.html</code>.  If neither is defined it'll raise a configuration error.  If you need any more complex behavior that that, you should override <code>get_template_names()</code>.</p>
+<hr />
+<h4 id="get_form"><code>get_form()</code></h4>
+<hr />
+<p><strong>This is refactored</strong>, instead of taking a single <code>form_class</code> argument it instead takes the form <code>data</code> and <code>files</code> arguments, plus optional extra keyword arguments.  This results in a simpler, more direct control flow in the implementation.</p>
+<p>Instead of this in your views:</p>
+<pre class="prettyprint lang-py"><code>form_cls = self.get_form_class()
+form = self.get_form(form_cls)
+</code></pre>
+<p>You should write this:</p>
+<pre class="prettyprint lang-py"><code>form = self.get_form(request.DATA, request.FILES, instance=self.object)
+</code></pre>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/.fluid-container-->
+    </div><!--/.body content-->
+      <div id="push"></div>
+  </div><!--/.wrapper -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/jquery-1.8.1-min.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/prettify-1.0.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/bootstrap-2.1.1-min.js"></script>
+    <script>
+      //$('.side-nav').scrollspy()
+      var shiftWindow = function() { scrollBy(0, -50) };
+      if (location.hash) shiftWindow();
+      window.addEventListener("hashchange", shiftWindow);
+
+      $('.dropdown-menu').on('click touchstart', function(event) {
+        event.stopPropagation();
+      });
+
+      // Dynamically force sidenav to no higher than browser window
+      $('.side-nav').css('max-height', window.innerHeight - 130);
+
+      $(function(){
+        $(window).resize(function(){
+          $('.side-nav').css('max-height', window.innerHeight - 130);
+        });
+      });
+    </script>
+</body></html>

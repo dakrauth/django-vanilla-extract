@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Django Vanilla Extract - None</title>
+    <link href="https://dakrauth.github.io/django-vanilla-extract/img/favicon.ico" rel="icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Django, CBV, GCBV, Generic class based views, Django Extra Views Compatibility">
+    <meta name="author" content="Tom Christie">
+
+    <!-- Le styles -->
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/prettify.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/default.css" rel="stylesheet">
+  </head>
+  <body onload="prettyPrint()" class="django-extra-views-compatibility-page">
+
+  <div class="wrapper">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="repo-link btn btn-primary btn-small" href="https://github.com/dakrauth/django-vanilla-extract/tree/master">GitHub</a>
+            <a class="repo-link btn btn-inverse btn-small " href="../topics/release-notes.html">Next <i class="icon-arrow-right icon-white"></i></a>
+            <a class="repo-link btn btn-inverse btn-small " href="../topics/django-braces-compatibility.html"><i class="icon-arrow-left icon-white"></i> Previous</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="https://dakrauth.github.io/django-vanilla-extract/index.html">Django Vanilla Extract</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="https://dakrauth.github.io/django-vanilla-extract/index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Migration Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Topics <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/frequently-asked-questions.html">Frequently Asked Questions</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-braces-compatibility.html">Django Braces Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-extra-views-compatibility.html">Django Extra Views Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/release-notes.html">Release Notes</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav pull-right">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span3">
+            <div id="table-of-contents">
+              <ul class="nav nav-list side-nav well sidebar-nav-fixed">
+                <li class="main"><a href="#django-extra-views-compatibility">Django Extra Views Compatibility</a></li>
+<li><a href="#mixin-classes">Mixin classes</a></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div id="main-content" class="span9">
+            <h1 id="django-extra-views-compatibility">Django Extra Views Compatibility</h1>
+<p>You can use the views in <code>django-vanilla-extract</code> alongside the additional views that are supplied by <a href="https://github.com/andrewingram/django-extra-views"><code>django-extra-views</code></a> just fine, although it will mean that you'll be working with Django's mixin style for some of your views, and the Vanilla style for other views.</p>
+<p>A good candidate for a future PyPI package would be a version of <a href="https://github.com/andrewingram/django-extra-views"><code>django-extra-views</code></a>, that uses the <code>django-vanilla-extract</code> views as the base and is implemented in a more vanilla-like style.</p>
+<p>There are also a couple of stand-alone mixin classes provided by <a href="https://github.com/andrewingram/django-extra-views"><code>django-extra-views</code></a>, both of which are fully API compatible with <code>django-vanilla-extract</code>.  The mixins are listed below.  If you believe either of these entries to be incorrect, or if new mixins are added that are not listed here, then please <a href="https://github.com/dakrauth/django-vanilla-extract/issues">open an issue on GitHub</a> so we can keep the information up to date.</p>
+<h2 id="mixin-classes">Mixin classes</h2>
+<table border=1>
+<tr><th>Mixin class</th><th>API compatible</th></tr>
+<tr><td>SortableListMixin</td><td>Yes</td></tr>
+<tr><td>SearchableListMixin</td><td>Yes</td></tr>
+</table>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/.fluid-container-->
+    </div><!--/.body content-->
+      <div id="push"></div>
+  </div><!--/.wrapper -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/jquery-1.8.1-min.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/prettify-1.0.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/bootstrap-2.1.1-min.js"></script>
+    <script>
+      //$('.side-nav').scrollspy()
+      var shiftWindow = function() { scrollBy(0, -50) };
+      if (location.hash) shiftWindow();
+      window.addEventListener("hashchange", shiftWindow);
+
+      $('.dropdown-menu').on('click touchstart', function(event) {
+        event.stopPropagation();
+      });
+
+      // Dynamically force sidenav to no higher than browser window
+      $('.side-nav').css('max-height', window.innerHeight - 130);
+
+      $(function(){
+        $(window).resize(function(){
+          $('.side-nav').css('max-height', window.innerHeight - 130);
+        });
+      });
+    </script>
+</body></html>

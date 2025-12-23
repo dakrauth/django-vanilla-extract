@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from pathlib import Path
 import re
 import shutil
@@ -9,11 +8,14 @@ import webbrowser
 import markdown
 
 PACKAGE = "Django Vanilla Extract"
-ROOT_DIR = Path(__file__).parent
-DOCS_DIR = ROOT_DIR / "docs"
-HTML_DIR = ROOT_DIR / "html"
+ROOT_DIR = Path(__file__).parent.parent
+DOCS_DIR = ROOT_DIR / "docs/src"
+HTML_DIR = ROOT_DIR / "docs"
+DOCS_BASE_URL = "https://dakrauth.github.io/django-vanilla-extract"
+BASE_URL = f"file://{HTML_DIR}" if "-l" in sys.argv else DOCS_BASE_URL
+
+RELATIVE_URL = ""
 PAGE_TEXT = (DOCS_DIR / "template.html").read_text()
-SUFFIX = ".html"
 
 MAIN_HEADER = '<li class="main"><a href="#{{ anchor }}">{{ title }}</a></li>'
 SUB_HEADER = '<li><a href="#{{ anchor }}">{{ title }}</a></li>'
@@ -65,8 +67,8 @@ def convert_text(filename, text, prev_url, next_url):
         PAGE_TEXT,
         ("{{ content }}", content),
         ("{{ toc }}", toc),
-        ("{{ base_url }}", f"file://{HTML_DIR}/"),
-        ("{{ suffix }}", SUFFIX),
+        ("{{ base_url }}", BASE_URL),
+        ("{{ suffix }}", ".html"),
         ("{{ index }}", "index.html"),
         ("{{ title }}", main_title),
         ("{{ description }}", description),
@@ -84,7 +86,7 @@ def convert_text(filename, text, prev_url, next_url):
         output = output.replace("{{ next_url }}", "#")
         output = output.replace("{{ next_url_disabled }}", "disabled")
 
-    output = re.sub(r'a href="([^"]*)\.md"', r'a href="\1%s"' % SUFFIX, output)
+    output = re.sub(r'a href="([^"]*)\.md"', r'a href="\1.html"', output)
     output = re.sub(
         r"<pre><code>:::bash",
         r'<pre class="prettyprint lang-bsh">',
@@ -97,13 +99,14 @@ def convert_text(filename, text, prev_url, next_url):
 def build_relative_urls(path_list):
     prev_map = {}
     next_map = {}
+    path_len = len(path_list)
     for idx, path in enumerate(path_list):
         rel = "../" * path.count("/")
         if idx > 0:
-            prev_map[path] = rel + path_list[idx - 1][:-3] + SUFFIX
+            prev_map[path] = rel + path_list[idx - 1][:-3] + ".html"
 
-        if idx < len(path_list) - 1:
-            next_map[path] = rel + path_list[idx + 1][:-3] + SUFFIX
+        if idx < path_len - 1:
+            next_map[path] = rel + path_list[idx + 1][:-3] + ".html"
 
     return prev_map, next_map
 
@@ -128,6 +131,9 @@ def mkdocs():
         build_dir.mkdir(exist_ok=True)
 
         for filename in filenames:
+            if filename == "template.html":
+                continue
+
             path = dirpath / filename
             if not filename.endswith(".md"):
                 if relative_dir:
@@ -143,11 +149,29 @@ def mkdocs():
             )
             Path(build_dir / f"{filename[:-3]}.html").write_text(output)
 
-
-def main():
-    mkdocs()
     if "-p" in sys.argv:
         webbrowser.open_new_tab(f"file://{HTML_DIR / 'index.html'}")
+
+
+def permute():
+    text = [""]
+    bits = iter(re.split(r"([{}])", sys.argv[2]))
+    for bit in bits:
+        if not bit:
+            continue
+        if bit == "{":
+            value = next(bits).split(",")
+            text = [f"{t}{b}" for t in text for b in value]
+            assert next(bits) == "}"
+        else:
+            text = [f"{t}{bit}" for t in text]
+
+    print("\n".join(text))
+
+
+def main():
+    func = sys.argv[1]
+    {"mkdocs" : mkdocs, "permute": permute}[func]()
 
 
 if __name__ == '__main__':

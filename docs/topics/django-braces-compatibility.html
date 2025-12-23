@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Django Vanilla Extract - None</title>
+    <link href="https://dakrauth.github.io/django-vanilla-extract/img/favicon.ico" rel="icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Django, CBV, GCBV, Generic class based views, Django Braces compatibility">
+    <meta name="author" content="Tom Christie">
+
+    <!-- Le styles -->
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/prettify.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/default.css" rel="stylesheet">
+  </head>
+  <body onload="prettyPrint()" class="django-braces-compatibility-page">
+
+  <div class="wrapper">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="repo-link btn btn-primary btn-small" href="https://github.com/dakrauth/django-vanilla-extract/tree/master">GitHub</a>
+            <a class="repo-link btn btn-inverse btn-small " href="../topics/django-extra-views-compatibility.html">Next <i class="icon-arrow-right icon-white"></i></a>
+            <a class="repo-link btn btn-inverse btn-small " href="../topics/frequently-asked-questions.html"><i class="icon-arrow-left icon-white"></i> Previous</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="https://dakrauth.github.io/django-vanilla-extract/index.html">Django Vanilla Extract</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="https://dakrauth.github.io/django-vanilla-extract/index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Migration Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Topics <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/frequently-asked-questions.html">Frequently Asked Questions</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-braces-compatibility.html">Django Braces Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-extra-views-compatibility.html">Django Extra Views Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/release-notes.html">Release Notes</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav pull-right">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span3">
+            <div id="table-of-contents">
+              <ul class="nav nav-list side-nav well sidebar-nav-fixed">
+                <li class="main"><a href="#django-braces-compatibility">Django Braces compatibility</a></li>
+<li><a href="#access-mixins">Access Mixins</a></li>
+<li><a href="#form-mixins">Form Mixins</a></li>
+<li><a href="#other-mixins">Other Mixins</a></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div id="main-content" class="span9">
+            <h1 id="django-braces-compatibility">Django Braces compatibility</h1>
+<p>The <code>django-vanilla-extract</code> package is almost completely compatible with the mixin classes provided by the popular <a href="https://github.com/brack3t/django-braces"><code>django-braces</code></a> package.</p>
+<p>The full set of mixins is listed below.  If you believe any of these entries to be incorrect, or if new mixins are added that are not listed here, then please <a href="https://github.com/dakrauth/django-vanilla-extract/issues">open an issue on GitHub</a> so we can keep the information up to date.</p>
+<h2 id="access-mixins">Access Mixins</h2>
+<table border=1>
+<tr><th>Mixin class</th><th>API compatible</th></tr>
+<tr><td>LoginRequiredMixin</td><td>Yes</td></tr>
+<tr><td>PermissionRequiredMixin</td><td>Yes</td></tr>
+<tr><td>MultiplePermissionsRequiredMixin</td><td>Yes</td></tr>
+<tr><td>GroupRequiredMixin</td><td>Yes</td></tr>
+<tr><td>SuperuserRequiredMixin</td><td>Yes</td></tr>
+<tr><td>StaffuserRequiredMixin</td><td>Yes</td></tr>
+</table>
+
+<h2 id="form-mixins">Form Mixins</h2>
+<table border=1>
+<tr><th>Mixin class</th><th>API compatible</th></tr>
+<tr><td>CsrfExemptMixin</td><td>Yes</td></tr>
+<tr><td>UserFormKwargsMixin</td><td>No (*)</td></tr>
+<tr><td>UserKwargModelFormMixin</td><td>Yes</td></tr>
+<tr><td>SuccessURLRedirectListMixin</td><td>Yes</td></tr>
+<tr><td>FormValidMessageMixin</td><td>Yes</td></tr>
+<tr><td>FormInvalidMessageMixin</td><td>Yes</td></tr>
+<tr><td>FormMessagesMixin</td><td>Yes</td></tr>
+</table>
+
+<p>(*) The <code>UserFormKwargsMixin</code> class is not compatible because it overrides the <code>get_form_kwargs()</code> method, which does not exist in <code>django-vanilla-extract</code>.</p>
+<p>You can instead write a <code>django-vanilla-extract</code> compatible mixin, like this:</p>
+<pre class="prettyprint lang-py"><code>class UserFormKwargsMixin(object):
+    def get_form(self, data=None, files=None, **kwargs):
+        kwargs['user'] = self.request.user
+        return super(UserFormKwargsMixin, self).get_form(data=data, files=files, **kwargs)
+</code></pre>
+<h2 id="other-mixins">Other Mixins</h2>
+<table border=1>
+<tr><th>Mixin class</th><th>API compatible</th></tr>
+<tr><td>SetHeadlineMixin</td><td>Yes</td></tr>
+<tr><td>SelectRelatedMixin</td><td>Yes</td></tr>
+<tr><td>PrefetchRelatedMixin</td><td>Yes</td></tr>
+<tr><td>JSONResponseMixin</td><td>Yes</td></tr>
+<tr><td>JsonRequestResponseMixin</td><td>Yes</td></tr>
+<tr><td>AjaxResponseMixin</td><td>Yes</td></tr>
+<tr><td>OrderableListMixin</td><td>Yes</td></tr>
+<tr><td>CanonicalSlugDetailMixin</td><td>Yes (*)</td></tr>
+</table>
+
+<p>(*) The <code>CanonicalSlugDetailMixin</code> is not compatible in the current <code>1.2.2</code> PyPI release, but is compatible in the current <code>master</code> branch, and should be compatible in the next upcoming PyPI release.</p>
+<p>Note that if using <code>CanonicalSlugDetailMixin</code> you <strong>must</strong> also set a <code>slug_url_kwarg</code> on the view.</p>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/.fluid-container-->
+    </div><!--/.body content-->
+      <div id="push"></div>
+  </div><!--/.wrapper -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/jquery-1.8.1-min.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/prettify-1.0.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/bootstrap-2.1.1-min.js"></script>
+    <script>
+      //$('.side-nav').scrollspy()
+      var shiftWindow = function() { scrollBy(0, -50) };
+      if (location.hash) shiftWindow();
+      window.addEventListener("hashchange", shiftWindow);
+
+      $('.dropdown-menu').on('click touchstart', function(event) {
+        event.stopPropagation();
+      });
+
+      // Dynamically force sidenav to no higher than browser window
+      $('.side-nav').css('max-height', window.innerHeight - 130);
+
+      $(function(){
+        $(window).resize(function(){
+          $('.side-nav').css('max-height', window.innerHeight - 130);
+        });
+      });
+    </script>
+</body></html>

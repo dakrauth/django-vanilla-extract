@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Django Vanilla Extract - None</title>
+    <link href="https://dakrauth.github.io/django-vanilla-extract/img/favicon.ico" rel="icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Django, CBV, GCBV, Generic class based views, Migration Guide">
+    <meta name="author" content="Tom Christie">
+
+    <!-- Le styles -->
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/prettify.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="https://dakrauth.github.io/django-vanilla-extract/css/default.css" rel="stylesheet">
+  </head>
+  <body onload="prettyPrint()" class="base-views-page">
+
+  <div class="wrapper">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="repo-link btn btn-primary btn-small" href="https://github.com/dakrauth/django-vanilla-extract/tree/master">GitHub</a>
+            <a class="repo-link btn btn-inverse btn-small " href="../migration/model-views.html">Next <i class="icon-arrow-right icon-white"></i></a>
+            <a class="repo-link btn btn-inverse btn-small " href="../api/model-views.html"><i class="icon-arrow-left icon-white"></i> Previous</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="https://dakrauth.github.io/django-vanilla-extract/index.html">Django Vanilla Extract</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="https://dakrauth.github.io/django-vanilla-extract/index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/api/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Migration Guide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/base-views.html">Base Views</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/migration/model-views.html">Model Views</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Topics <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/frequently-asked-questions.html">Frequently Asked Questions</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-braces-compatibility.html">Django Braces Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/django-extra-views-compatibility.html">Django Extra Views Compatibility</a></li>
+                  <li><a href="https://dakrauth.github.io/django-vanilla-extract/topics/release-notes.html">Release Notes</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav pull-right">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span3">
+            <div id="table-of-contents">
+              <ul class="nav nav-list side-nav well sidebar-nav-fixed">
+                <li class="main"><a href="#migration-guide">Migration Guide</a></li>
+<li><a href="#base-views">Base Views</a></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div id="main-content" class="span9">
+            <h1 id="migration-guide">Migration Guide</h1>
+<h2 id="base-views">Base Views</h2>
+<p>This document provides the complete set of API changes between Django's existing basic generic views and the corresponding <code>django-vanilla-extract</code> implementations.</p>
+<p>It covers <code>RedirectView</code>, <code>TemplateView</code> and <code>FormView</code>.  For the model views please <a href="model-views.html">see here</a>.</p>
+<p>Wherever API points have been removed, we provide examples of what you should be using instead.</p>
+<p>Although a large amount of API has been removed, the functionality that the views provide should be identical to Django's existing views.  If you believe you've found some behavior in Django's generic class based views that can't also be trivially achieved in <code>django-vanilla-extract</code>, then please <a href="https://github.com/dakrauth/django-vanilla-extract/issues">open a ticket</a>, and we'll treat it as a bug.</p>
+<hr />
+<h4 id="initial-prefix-get_initial-get_prefix-get_form_kwargs"><code>initial</code>, <code>prefix</code>, <code>get_initial()</code>, <code>get_prefix()</code>, <code>get_form_kwargs()</code></h4>
+<hr />
+<p><strong>These are all removed</strong>.  If you need to override how the form is initialized, just override <code>get_form()</code>.</p>
+<p>For example, instead of this:</p>
+<pre class="prettyprint lang-py"><code>def get_form_kwargs(self):
+    kwargs = super(AccountEditView, self).get_form_kwargs
+    kwargs['user'] = self.request.user
+    return kwargs
+</code></pre>
+<p>You should write this:</p>
+<pre class="prettyprint lang-py"><code>def get_form(self, data, files, **kwargs):
+    kwargs['user'] = self.request.user
+    return AccountForm(data, files, **kwargs)
+</code></pre>
+<hr />
+<h4 id="content_type-response_cls"><code>content_type</code>, <code>response_cls</code></h4>
+<hr />
+<p><strong>These are removed</strong>.  If you need to customize how responses are rendered, you should override <code>render_to_response()</code>.</p>
+<pre class="prettyprint lang-py"><code>def render_to_response(context):
+    return JSONResponse(self.request, context)
+</code></pre>
+<p>If you needed to override the content type, you might write:</p>
+<pre class="prettyprint lang-py"><code>def render_to_response(context):
+    template = self.get_template_names()
+    return TemplateResponse(self.request, template, context, content_type='text/plain')
+</code></pre>
+<hr />
+<h4 id="get_form"><code>get_form()</code></h4>
+<hr />
+<p><strong>This is refactored</strong>, instead of taking a single <code>form_class</code> argument it instead takes the form <code>data</code> and <code>files</code> arguments, plus optional extra keyword arguments.  This results in a simpler, more direct control flow in the implementation.</p>
+<p>Instead of this in your views:</p>
+<pre class="prettyprint lang-py"><code>form_cls = self.get_form_class()
+form = self.get_form(form_cls)
+</code></pre>
+<p>You should write this:</p>
+<pre class="prettyprint lang-py"><code>form = self.get_form(request.DATA, request.FILES)
+</code></pre>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/.fluid-container-->
+    </div><!--/.body content-->
+      <div id="push"></div>
+  </div><!--/.wrapper -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/jquery-1.8.1-min.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/prettify-1.0.js"></script>
+    <script src="https://dakrauth.github.io/django-vanilla-extract/js/bootstrap-2.1.1-min.js"></script>
+    <script>
+      //$('.side-nav').scrollspy()
+      var shiftWindow = function() { scrollBy(0, -50) };
+      if (location.hash) shiftWindow();
+      window.addEventListener("hashchange", shiftWindow);
+
+      $('.dropdown-menu').on('click touchstart', function(event) {
+        event.stopPropagation();
+      });
+
+      // Dynamically force sidenav to no higher than browser window
+      $('.side-nav').css('max-height', window.innerHeight - 130);
+
+      $(function(){
+        $(window).resize(function(){
+          $('.side-nav').css('max-height', window.innerHeight - 130);
+        });
+      });
+    </script>
+</body></html>
